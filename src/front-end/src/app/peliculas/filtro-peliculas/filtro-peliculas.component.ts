@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-filtro-peliculas',
@@ -8,7 +10,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class FiltroPeliculasComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+    //location permite reescribir la url
+    private location: Location,
+    //para leer los valore de location que se ecribieron como parametros de busqueda
+    private activatedRoute: ActivatedRoute) { }
 
   form: FormGroup
 
@@ -40,6 +46,10 @@ export class FiltroPeliculasComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(this.formularioOriginal);
+    //lee con los campos de busqueda
+    this.leerValoresURL();
+    //aplica la busqueda si la hay
+    this.buscarPeliculas(this.form.value);
     //para utilizar los cambios que ocurran en los campos del formulario
     this.form.valueChanges
     .subscribe(valores => {
@@ -47,7 +57,61 @@ export class FiltroPeliculasComponent implements OnInit {
       this.peliculas = this.peliculasOriginal;
       //console.log(valores);
       this.buscarPeliculas(valores);
+      this.escribirParametrosBusquedaEnURL();
     })
+  }
+
+  private leerValoresURL(){
+    this.activatedRoute.queryParams.subscribe((params) => {
+      //objeto que se va a llenar con los valores de busqueda
+      //any para que pueda recibir cualquier valor
+      var objeto: any = {};
+
+      if (params.titulo){
+        objeto.titulo = params.titulo;
+      }
+
+      if (params.generoId){
+        objeto.generoId = Number(params.generoId);
+      }
+      
+      if (params.proximosEstrenos){
+        objeto.proximosEstrenos =  params.proximosEstrenos;
+      }
+
+      if (params.enCines){
+        objeto.enCines =  params.enCines;
+      }
+
+      //modifica con los datos del objeto
+      this.form.patchValue(objeto);
+
+    });
+  }
+
+  private escribirParametrosBusquedaEnURL(){
+    var queryStrings = [];
+
+    var valoresFormulario = this.form.value;
+
+    if (valoresFormulario.titulo){
+      queryStrings.push(`titulo=${valoresFormulario.titulo}`);
+    }
+
+    if (valoresFormulario.generoId != '0'){
+      queryStrings.push(`generoId=${valoresFormulario.generoId}`);
+    }
+
+    if (valoresFormulario.proximosEstrenos){
+      queryStrings.push(`proximosEstrenos=${valoresFormulario.proximosEstrenos}`);
+    }
+
+    if (valoresFormulario.enCines){
+      queryStrings.push(`enCines=${valoresFormulario.enCines}`);
+    }
+
+    //para reescribir la url con los parametros de busqueda
+    this.location.replaceState('peliculas/buscar', queryStrings.join('&'));
   }
 
   buscarPeliculas(valores: any){
@@ -67,6 +131,7 @@ export class FiltroPeliculasComponent implements OnInit {
       //filtro de encines
       this.peliculas = this.peliculas.filter(pelicula => pelicula.enCines);
     }
+    
   }
 
   limpiar(){
