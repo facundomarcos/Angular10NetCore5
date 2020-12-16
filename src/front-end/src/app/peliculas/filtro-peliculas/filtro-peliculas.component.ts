@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-filtro-peliculas',
@@ -7,9 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FiltroPeliculasComponent implements OnInit {
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) { }
+
+  form: FormGroup
+
+  generos = [{id: 1, nombre: 'Drama'},
+  { id: 2, nombre: 'Comedia'},
+  { id: 3, nombre: 'Acción'}
+];
 
   ngOnInit(): void {
+    this.form = this.formBuilder.group({
+      titulo: '',
+      generoId:0,
+      proximosEstrenos: false,
+      enCines: false
+    });
+  }
+
+  limpiar(){
+    
   }
 
 }
