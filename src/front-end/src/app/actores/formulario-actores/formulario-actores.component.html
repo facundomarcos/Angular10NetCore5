@@ -15,6 +15,8 @@
 
         </app-input-img>
 
+        <app-input-markdown (changeMarkdown)="cambioMarkdown($event)"></app-input-markdown>
+
     <div>
         <button mat-flat-button color="primary" [disabled]="form.invalid">
             Guardar Cambios
