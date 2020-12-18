@@ -14,7 +14,7 @@ export class InputMarkdownComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  }s
+  }
 
   inputTextArea(texto: string){
     this.contenidoMarkdown = texto;
