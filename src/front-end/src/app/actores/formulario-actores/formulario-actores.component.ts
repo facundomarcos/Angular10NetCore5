@@ -46,6 +46,7 @@ export class FormularioActoresComponent implements OnInit {
   cambioMarkdown(texto: string){
     this.form.get('biografia').setValue(texto);
   }
+  
   onSubmit(){
     this.OnSubmit.emit(this.form.value);
   }
