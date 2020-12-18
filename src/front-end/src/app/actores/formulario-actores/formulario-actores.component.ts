@@ -1,6 +1,6 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EventEmitter } from 'events';
+import { EventEmitter } from '@angular/core';
 import { actorCreacionDTO } from '../actor';
 
 @Component({
@@ -13,6 +13,9 @@ export class FormularioActoresComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) { }
 
   form: FormGroup;
+
+  @Input()
+  modelo: actorCreacionDTO;
 
   @Output()
   submit: EventEmitter<actorCreacionDTO> = new EventEmitter<actorCreacionDTO>();
@@ -27,6 +30,10 @@ export class FormularioActoresComponent implements OnInit {
     ],
     fechaNacimiento: ''
     });
+
+    if (this.modelo !== undefined){
+      this.form.patchValue(this.modelo)
+    }
   }
 
   onSubmit(){
