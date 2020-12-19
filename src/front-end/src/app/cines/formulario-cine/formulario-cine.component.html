@@ -4,11 +4,22 @@
         <input formControlName="nombre" matInput />
         <mat-error *ngIf="form.invalid">El campo nombre es requerido</mat-error>
     </mat-form-field>
-</form>
 
-<div>
-    <button mat-flat-button color="primary" [disabled]="form.invalid">
-        Guardar Cambios
-    </button>
-    <a mat-stroked-button routerLink="/cines">Cancelar</a>
-</div>
+    <h4>Seleccione el cine en el mapa</h4>
+
+  <!-- encapsulacion de mapas -->
+
+    <div>
+       
+    </div>
+
+    <div>
+        <button mat-flat-button color="primary" [disabled]="form.invalid">
+            Guardar Cambios
+        </button>
+        <a mat-stroked-button routerLink="/cines">
+            Cancelar
+        </a>
+    </div>
+
+</form>
