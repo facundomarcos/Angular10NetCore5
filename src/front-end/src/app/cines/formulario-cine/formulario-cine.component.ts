@@ -21,7 +21,7 @@ export class FormularioCineComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.formBuilder.group({
+    this.form = this.formBuilder.group({
       nombre: ['', {
         validators: [Validators.required],
       }]
