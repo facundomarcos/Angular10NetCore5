@@ -3,7 +3,9 @@
     <mat-tab label="Editar">
         <mat-form-field appearance="fill">
             <mat-label>Biografía</mat-label>
-            <textarea (input)="inputTextArea($event.target.value)" matInput></textarea>
+            <!-- se remplazo ($event.target.value) por ($any($event.target).value)
+            se ve que es un problema de casteo el que daba error-->
+            <textarea (input)="inputTextArea($any($event.target).value)" matInput></textarea>
         </mat-form-field>
         
     </mat-tab>
