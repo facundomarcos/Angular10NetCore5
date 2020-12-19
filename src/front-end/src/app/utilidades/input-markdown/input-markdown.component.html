@@ -2,7 +2,7 @@
 <mat-tab-group>
     <mat-tab label="Editar">
         <mat-form-field appearance="fill">
-            <mat-label>Biografía</mat-label>
+            <mat-label>{{placeHolderTextArea}}</mat-label>
             <!-- se remplazo ($event.target.value) por ($any($event.target).value)
             se ve que es un problema de casteo el que daba error-->
             <textarea (input)="inputTextArea($any($event.target).value)" matInput></textarea>
