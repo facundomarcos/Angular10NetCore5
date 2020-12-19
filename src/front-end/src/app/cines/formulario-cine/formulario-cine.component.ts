@@ -1,7 +1,11 @@
 //tuve un error en el boton de guardado que no pude resolver
 //busque en git y lo resolvi compiando el componente de
+//aparentemente fue un error en la linea donde esta declarado el formbuilder
 //https://github.com/Gefermanpernia/front-end--Curso-de-Gavilanch--Angular10ASP.NET
 //que tiene el curso bastante avanzado
+
+//para los mapas se usa esta libreria LEAFLET
+//https://github.com/Asymmetrik/ngx-leaflet
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 //import { Coordenada } from 'src/app/utilidades/mapa/coordenada';
