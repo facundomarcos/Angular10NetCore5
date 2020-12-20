@@ -34,6 +34,7 @@ import { InputMarkdownComponent } from './utilidades/input-markdown/input-markdo
 import { FormularioCineComponent } from './cines/formulario-cine/formulario-cine.component';
 import { MapaComponent } from './utilidades/mapa/mapa.component';
 import { FormularioPeliculaComponent } from './peliculas/formulario-pelicula/formulario-pelicula.component';
+import { SelectorMultipleComponent } from './utilidades/selector-multiple/selector-multiple.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { FormularioPeliculaComponent } from './peliculas/formulario-pelicula/for
     FormularioCineComponent,
     MapaComponent,
     FormularioPeliculaComponent,
+    SelectorMultipleComponent,
   
   ],
   imports: [
