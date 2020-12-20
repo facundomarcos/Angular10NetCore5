@@ -38,12 +38,14 @@ namespace PeliculasAPI.Controllers
             return await context.Generos.ToListAsync();
         }
 
-        [HttpGet("{id:int}")]
+       /* Revisar metodo async (avisa desde el frontend)
+        * [HttpGet("{id:int}")]
         public async Task<ActionResult<Genero>> Get(int Id)
         {
 
             throw new NotImplementedException();
         }
+       */
 
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] Genero genero)
