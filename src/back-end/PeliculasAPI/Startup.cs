@@ -30,6 +30,22 @@ namespace PeliculasAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //configuracion del CORS para conectarse con angular
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    //usando en IConfiguration inyectamos la url en la variable
+                    var frontendURL = Configuration.GetValue<string>("frontend_url");
+                    //especifica los permisos, que permisos y a quien
+                    builder.WithOrigins(frontendURL)
+                    //permitir todos los metodos
+                    .AllowAnyMethod()
+                    //permitir todos los cabeceras
+                    .AllowAnyHeader();
+                });
+            });
+
             //AddTransient es el tiempo de vida mas corto de un servicio, 
             //se entregan instancias distintas en una misma peticion http
             //AddScope el tiempo de vida de la clase instanciada va a ser durante toda la peticion http y su contexto
@@ -65,6 +81,7 @@ namespace PeliculasAPI
 
             app.UseRouting();
 
+            app.UseCors();
 
             app.UseAuthentication();
 
