@@ -1,4 +1,8 @@
 export interface generoCreacionDTO{
     nombre: string;
 }
-///comentario
+
+export interface generoDTO{
+    id: number;
+    nombre: string;
+}
