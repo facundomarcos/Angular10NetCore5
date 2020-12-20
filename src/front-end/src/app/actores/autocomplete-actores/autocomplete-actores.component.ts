@@ -52,7 +52,7 @@ columnasAMostrar = ['imagen', 'nombre', 'personaje', 'acciones'];
     this.table.renderRows();
   }
 
-  finalizaArrastre(event: CdkDragDrop<any>[]){
+  finalizaArrastre(event: CdkDragDrop<any[]>){
     const indicePrevio = this.actoresSeleccionados.findIndex(
       actor => actor === event.item.data
     )
