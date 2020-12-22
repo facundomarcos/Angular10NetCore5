@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using PeliculasAPI.DTOs;
 using PeliculasAPI.Entidades;
 using PeliculasAPI.Filtros;
 using System;
@@ -21,35 +23,41 @@ namespace PeliculasAPI.Controllers
     {
         private readonly ILogger<GenerosController> logger;
         private readonly AplicationDbContext context;
+        private readonly IMapper mapper;
 
         public GenerosController(
             ILogger<GenerosController> logger,
-            AplicationDbContext context)
+            AplicationDbContext context,
+            IMapper mapper)
         {
            
             this.logger = logger;
             this.context = context;
+            this.mapper = mapper;
         }
 
         [HttpGet] // api/Generos
       
-        public async Task<ActionResult<List<Genero>>> Get()
+        public async Task<ActionResult<List<GeneroDTO>>> Get()
         {
-            return await context.Generos.ToListAsync();
+            var generos = await context.Generos.ToListAsync();
+            return mapper.Map<List<GeneroDTO>>(generos);
+
         }
 
-       /* Revisar metodo async (avisa desde el frontend)
-        * [HttpGet("{id:int}")]
+       // Revisar metodo async (avisa desde el frontend)
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<Genero>> Get(int Id)
         {
 
             throw new NotImplementedException();
         }
-       */
+       
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] Genero genero)
+        public async Task<ActionResult> Post([FromBody] GeneroCreacionDTO generoCreacionDTO)
         {
+            var genero = mapper.Map<Genero>(generoCreacionDTO);
             context.Add(genero);
             await context.SaveChangesAsync();
             return NoContent();
