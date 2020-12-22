@@ -50,8 +50,8 @@ namespace PeliculasAPI
                     builder.WithOrigins(frontendURL)
                     //permitir todos los metodos
                     .AllowAnyMethod()
-                    //permitir todos los cabeceras
-                    .AllowAnyHeader();
+                    //permitir todas los cabeceras . expuestas -> para visualizar la cantidad de registros
+                    .AllowAnyHeader().WithExposedHeaders(new string[] { "cantidadTotalRegistros" });
                 });
             });
 
