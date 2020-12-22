@@ -23,12 +23,12 @@ namespace PeliculasAPI.Controllers
     public class GenerosController : ControllerBase
     {
         private readonly ILogger<GenerosController> logger;
-        private readonly AplicationDbContext context;
+        private readonly ApplicationDbContext context;
         private readonly IMapper mapper;
 
         public GenerosController(
             ILogger<GenerosController> logger,
-            AplicationDbContext context,
+            ApplicationDbContext context,
             IMapper mapper)
         {
            

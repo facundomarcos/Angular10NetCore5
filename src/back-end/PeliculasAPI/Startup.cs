@@ -36,7 +36,7 @@ namespace PeliculasAPI
             services.AddAutoMapper(typeof(Startup));
 
             //servicio para conectar a la base de datos
-            services.AddDbContext<AplicationDbContext>(options => 
+            services.AddDbContext<ApplicationDbContext>(options => 
             options.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
 
             //configuracion del CORS para conectarse con angular
