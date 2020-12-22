@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { generoDTO } from '../genero';
 import { GenerosService } from '../generos.service';
 
 @Component({
@@ -10,10 +11,13 @@ export class IndiceGenerosComponent implements OnInit {
 
   constructor(private generosService: GenerosService) { }
 
+  generos: generoDTO[];
+  columnasAMostrar = ['id', 'nombre', 'acciones'];
+
   ngOnInit(): void {
     this.generosService.obtenerTodos()
     .subscribe(generos => {
-      console.log(generos)
+      this.generos = generos;
     },
     error => console.error(error));
     
