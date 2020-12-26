@@ -17,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using PeliculasAPI.Filtros;
+using PeliculasAPI.Utilidades;
 
 namespace PeliculasAPI
 {
@@ -34,6 +35,10 @@ namespace PeliculasAPI
         {
             //servicio automaper para mapear los DTO a clases y viceversa
             services.AddAutoMapper(typeof(Startup));
+
+            //para guardar imagenes en local
+            services.AddTransient<IAlmacenadorArchivos, AlmacenadorArchivosLocal>();
+            services.AddHttpContextAccessor();
 
             //servicio para conectar a la base de datos
             services.AddDbContext<ApplicationDbContext>(options => 
@@ -87,6 +92,9 @@ namespace PeliculasAPI
             }
 
             app.UseHttpsRedirection();
+
+            //permite el uso de archivos estaticos (fotos)
+            app.UseStaticFiles();
 
             app.UseRouting();
 
