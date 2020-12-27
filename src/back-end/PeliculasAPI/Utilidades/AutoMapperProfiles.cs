@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using NetTopologySuite.Geometries;
 using PeliculasAPI.DTOs;
 using PeliculasAPI.Entidades;
 using System;
@@ -10,7 +11,7 @@ namespace PeliculasAPI.Utilidades
 {
     public class AutoMapperProfiles : Profile
     {
-        public AutoMapperProfiles()
+        public AutoMapperProfiles(GeometryFactory geometryFactory)
         {
             CreateMap<Genero, GeneroDTO>().ReverseMap();
             CreateMap<GeneroCreacionDTO, Genero>();
@@ -18,6 +19,10 @@ namespace PeliculasAPI.Utilidades
             CreateMap<ActorCreacionDTO, Actor>()
                 //ignorar la foto, se va a subir de otra manera
                 .ForMember(x => x.Foto, options => options.Ignore());
+
+            CreateMap<CineCreacionDTO, Cine>()
+                .ForMember(x => x.Ubicacion, x => x.MapFrom(dto =>
+                geometryFactory.CreatePoint(new Coordinate(dto.Longitud, dto.Latitud))));
 
         }
     }

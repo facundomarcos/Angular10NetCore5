@@ -16,6 +16,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using NetTopologySuite;
+using NetTopologySuite.Geometries;
 using PeliculasAPI.Filtros;
 using PeliculasAPI.Utilidades;
 
@@ -36,14 +38,27 @@ namespace PeliculasAPI
             //servicio automaper para mapear los DTO a clases y viceversa
             services.AddAutoMapper(typeof(Startup));
 
+            services.AddSingleton(provider =>
+                new MapperConfiguration(config =>
+                {
+                    var geometryFactory = provider.GetRequiredService<GeometryFactory>();
+                    config.AddProfile(new AutoMapperProfiles(geometryFactory));
+                }).CreateMapper());
+
+            //para hacer mediciones en el planeta tierra
+            services.AddSingleton<GeometryFactory>(NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326));
+
             //para guardar imagenes en local
             services.AddTransient<IAlmacenadorArchivos, AlmacenadorArchivosLocal>();
             services.AddHttpContextAccessor();
 
             //servicio para conectar a la base de datos
             services.AddDbContext<ApplicationDbContext>(options => 
-            options.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
+            options.UseSqlServer(Configuration.GetConnectionString("defaultConnection"),
+            //para activar los querys espaciales de ubicacion de los cines
+            sqlServer => sqlServer.UseNetTopologySuite()));
 
+           
             //configuracion del CORS para conectarse con angular
             services.AddCors(options =>
             {
