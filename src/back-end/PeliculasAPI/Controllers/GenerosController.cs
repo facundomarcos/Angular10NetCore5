@@ -48,7 +48,6 @@ namespace PeliculasAPI.Controllers
 
         }
 
-       // Revisar metodo async (avisa desde el frontend)
         [HttpGet("{id:int}")]
         public async Task<ActionResult<GeneroDTO>> Get(int Id)
         {

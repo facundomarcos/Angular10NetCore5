@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { parsearErroresAPI } from 'src/app/utilidades/utilidades';
 import { cineCreacionDTO, cineDTO } from '../cine';
+import { CinesService } from '../cines.service';
 
 @Component({
   selector: 'app-editar-cine',
@@ -7,15 +10,31 @@ import { cineCreacionDTO, cineDTO } from '../cine';
   styleUrls: ['./editar-cine.component.css']
 })
 export class EditarCineComponent implements OnInit {
+  
+  constructor(private router: Router, 
+    private cinesService: CinesService,
+    private activatedRoute: ActivatedRoute) { }
 
-  constructor() { }
-
-  modelo: cineDTO = {nombre: "Cinema 8", latitud: -34.91693702712531, longitud: -57.94953882710616};
+  modelo: cineDTO;
+  errores: string[] = [];
 
   ngOnInit(): void {
-  }
+      this.activatedRoute.params.subscribe(params => {
+        this.cinesService.obtenerPorId(params.id)
+        .subscribe(cine => {
+          this.modelo = cine;
+        }, () => this.router.navigate(['/cines']))
+        });
+    }
 
+  
   guardarCambios(cine: cineCreacionDTO){
-    console.log(cine);
+    this.cinesService.editar(this.modelo.id, cine)
+    .subscribe(() => {
+      this.router.navigate(['/cines']);
+    }, error => this.errores = parsearErroresAPI(error))
+    //guarda
+    //usa el servicio para redirigir despues de guardar
+    //this.router.navigate(['/cines'])
   }
 }

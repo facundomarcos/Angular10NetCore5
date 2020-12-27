@@ -9,6 +9,7 @@ export interface cineCreacionDTO {
 
 //para editar cine
 export interface cineDTO {
+    id: number;
     nombre: string;
     latitud: number;
     longitud: number;
