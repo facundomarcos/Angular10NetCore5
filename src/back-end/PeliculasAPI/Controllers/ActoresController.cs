@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PeliculasAPI.DTOs;
 using PeliculasAPI.Entidades;
+using PeliculasAPI.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,20 +16,30 @@ namespace PeliculasAPI.Controllers
     {
         private readonly ApplicationDbContext context;
         private readonly IMapper mapper;
+        private readonly IAlmacenadorArchivos almacenadorArchivos;
+        private readonly string contenedor = "actores";
 
         public ActoresController(ApplicationDbContext context,
-           IMapper mapper )
+           IMapper mapper,
+           IAlmacenadorArchivos almacenadorArchivos)
         {
             this.context = context;
             this.mapper = mapper;
+            this.almacenadorArchivos = almacenadorArchivos;
         }
 
         [HttpPost]
         public async Task<ActionResult> Post([FromForm] ActorCreacionDTO actorCreacionDTO)
         {
             var actor = mapper.Map<Actor>(actorCreacionDTO);
+
+            if(actorCreacionDTO.Foto != null)
+            {
+               actor.Foto = await almacenadorArchivos.GuardarArchivo(contenedor, actorCreacionDTO.Foto);
+            }
+
             context.Add(actor);
-            //await context.SaveChangesAsync();
+            await context.SaveChangesAsync();
             return NoContent();
         }
     }
