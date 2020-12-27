@@ -30,11 +30,13 @@ export function parsearErroresAPI(response: any): string[]{
 }
 
 export function formatearFecha(date: Date){
+    //esto es en caso que la fecha venga con otro formato del web api
+    date = new Date(date);
     const formato= new Intl.DateTimeFormat('en', {
         year:'numeric',
         //2 digit marca error al guardar
-        month: 'numeric',
-        day: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
     });
     const [
         {value: month},,

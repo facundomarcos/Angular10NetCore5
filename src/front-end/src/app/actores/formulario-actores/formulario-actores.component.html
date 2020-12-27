@@ -17,7 +17,9 @@
 
         </app-input-img>
 
-        <app-input-markdown [placeHolderTextArea]="'Biografía'"
+        <app-input-markdown 
+        [contenidoMarkdown]="modelo?.biografia"
+        [placeHolderTextArea]="'Biografía'"
          (changeMarkdown)="cambioMarkdown($event)"></app-input-markdown>
 
     <div>
