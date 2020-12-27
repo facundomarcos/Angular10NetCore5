@@ -39,10 +39,10 @@ namespace PeliculasAPI.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<ActorDTO>> Get(int Id)
+        public async Task<ActionResult<ActorDTO>> Get(int id)
         {
 
-            var actor = await context.Actores.FirstOrDefaultAsync(x => x.Id == Id);
+            var actor = await context.Actores.FirstOrDefaultAsync(x => x.Id == id);
 
             if (actor == null)
             {
