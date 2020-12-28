@@ -68,7 +68,7 @@ namespace PeliculasAPI.Controllers
         }
 
         [HttpPost("buscarPorNombre")]
-        public async Task<ActionResult<List<PeliculaActorDTO>>> BuscarPorNombre(string nombre)
+        public async Task<ActionResult<List<PeliculaActorDTO>>> BuscarPorNombre([FromBody] string nombre)
         {
             if (string.IsNullOrWhiteSpace(nombre)) { return new List<PeliculaActorDTO>(); }
             return await context.Actores
