@@ -1,7 +1,8 @@
 import { makeBindingParser } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatCheckboxRequiredValidator } from '@angular/material/checkbox';
 import { latLng, LeafletMouseEvent, marker, Marker, tileLayer } from 'leaflet';
-import { Coordenada } from './coordenada';
+import { Coordenada, CoordenadaConMensaje } from './coordenada';
 
 @Component({
   selector: 'app-mapa',
@@ -13,13 +14,23 @@ export class MapaComponent implements OnInit {
   constructor() { }
 
   @Input()
-  coordenadasIniciales: Coordenada[] = [];
+  coordenadasIniciales: CoordenadaConMensaje[] = [];
+
+  @Input()
+  soloLectura: boolean = false;
 
   @Output()
   coordenadaSeleccionada: EventEmitter<Coordenada> = new EventEmitter<Coordenada>();
 
   ngOnInit(): void {
-    this.capas = this.coordenadasIniciales.map(valor => marker([valor.latitud, valor.longitud]));
+    this.capas = this.coordenadasIniciales.map((valor) => {
+     let marcador = marker([valor.latitud, valor.longitud]);
+      if (valor.mensaje){
+        marcador.bindPopup(valor.mensaje, {autoClose: false, autoPan: false});
+      }
+     return marcador;
+    }
+     );
   }
 
   options = {
@@ -34,13 +45,16 @@ export class MapaComponent implements OnInit {
   capas: Marker<any>[] =[];
 
   manejarClick(event: LeafletMouseEvent){
-    const latitud = event.latlng.lat;
+    
+    //console.log({latitud, longitud});
+    if (!this.soloLectura){
+      const latitud = event.latlng.lat;
     const longitud = event.latlng.lng;
-    console.log({latitud, longitud});
-
     this.capas = [];
     this.capas.push(marker([latitud, longitud]));
     this.coordenadaSeleccionada.emit({latitud: latitud, longitud: longitud});
+    }
+    
   }
 
   
