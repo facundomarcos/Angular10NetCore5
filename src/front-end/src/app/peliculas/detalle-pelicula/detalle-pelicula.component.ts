@@ -18,6 +18,7 @@ export class DetallePeliculaComponent implements OnInit {
 
     pelicula: PeliculaDTO;
     fechaLanzamiento: Date;
+    //esto esta explicado en el video 113 minuto 8 //RevisarEsto
     trailerURL: SafeResourceUrl;
     coordenadas: CoordenadaConMensaje[] = [];
 
@@ -26,11 +27,12 @@ export class DetallePeliculaComponent implements OnInit {
       this.peliculasService.obtenerPorId(params.id).subscribe(pelicula => {
         console.log(pelicula);
         this.pelicula = pelicula;
+        //modifica el tipo de dato fecha que viene del web API
         this.fechaLanzamiento = new Date(this.pelicula.fechaLanzamiento);
         this.trailerURL = this.generarURLYoutubeEmbed(this.pelicula.trailer);
         this.coordenadas = pelicula.cines.map(cine => {
           return {longitud: cine.longitud, latitud: cine.latitud, mensaje: cine.nombre}
-        })
+        });
       })
     })
   }
@@ -45,6 +47,6 @@ export class DetallePeliculaComponent implements OnInit {
       video_id = video_id.substring(0, posicionAmpersand);
     }
 
-    return this.sanitizer.bypassSecurityTrustUrl(`https://www.youtube.com/embed/${video_id}`)
+    return this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${video_id}`);
   }
 }

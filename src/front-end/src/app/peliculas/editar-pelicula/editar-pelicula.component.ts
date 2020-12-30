@@ -12,6 +12,7 @@ export class EditarPeliculaComponent implements OnInit {
   constructor() { }
 
   modelo: PeliculaDTO;
+  
   ngOnInit(): void {
   }
 

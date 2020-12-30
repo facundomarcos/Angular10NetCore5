@@ -13,6 +13,7 @@ export class MapaComponent implements OnInit {
 
   constructor() { }
 
+
   @Input()
   coordenadasIniciales: CoordenadaConMensaje[] = [];
 
