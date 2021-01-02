@@ -8,7 +8,7 @@
 //https://github.com/Asymmetrik/ngx-leaflet
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Coordenada } from 'src/app/utilidades/mapa/coordenada';
+import { Coordenada, CoordenadaConMensaje } from 'src/app/utilidades/mapa/coordenada';
 //import { Coordenada } from 'src/app/utilidades/mapa/coordenada';
 import { cineCreacionDTO } from '../cine';
 
