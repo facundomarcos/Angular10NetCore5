@@ -1,15 +1,6 @@
-//tuve un error en el boton de guardado que no pude resolver
-//busque en git y lo resolvi compiando el componente de
-//aparentemente fue un error en la linea donde esta declarado el formbuilder
-//https://github.com/Gefermanpernia/front-end--Curso-de-Gavilanch--Angular10ASP.NET
-//que tiene el curso bastante avanzado
-
-//para los mapas se usa esta libreria LEAFLET
-//https://github.com/Asymmetrik/ngx-leaflet
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Coordenada, CoordenadaConMensaje } from 'src/app/utilidades/mapa/coordenada';
-//import { Coordenada } from 'src/app/utilidades/mapa/coordenada';
+import { Coordenada } from 'src/app/utilidades/mapa/coordenada';
 import { cineCreacionDTO } from '../cine';
 
 @Component({
@@ -29,7 +20,9 @@ export class FormularioCineComponent implements OnInit {
   modelo: cineCreacionDTO;
 
   @Output()
-  guardarCambios: EventEmitter<cineCreacionDTO> = new EventEmitter<cineCreacionDTO>();
+  guardarCambios: EventEmitter<cineCreacionDTO> = new EventEmitter<
+    cineCreacionDTO
+  >();
 
   coordenadaInicial: Coordenada[] = [];
 
@@ -43,22 +36,28 @@ export class FormularioCineComponent implements OnInit {
       ],
       latitud: [
         '',
-        {validators: [Validators.required]}
+        {
+          validators: [Validators.required],
+        },
       ],
       longitud: [
         '',
-        {validators: [Validators.required]}
-      ]
-     
+        {
+          validators: [Validators.required],
+        },
+      ],
     });
 
-    if (this.modelo !== undefined){
+    if (this.modelo !== undefined) {
       this.form.patchValue(this.modelo);
-      this.coordenadaInicial.push({latitud: this.modelo.latitud, longitud: this.modelo.longitud});
+      this.coordenadaInicial.push({
+        latitud: this.modelo.latitud,
+        longitud: this.modelo.longitud,
+      });
     }
   }
 
-  coordenadaSeleccionada(coordenada: Coordenada){
+  coordenadaSeleccionada(coordenada: Coordenada) {
     this.form.patchValue(coordenada);
   }
 

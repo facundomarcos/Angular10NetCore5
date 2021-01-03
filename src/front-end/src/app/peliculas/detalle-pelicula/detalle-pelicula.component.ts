@@ -13,12 +13,11 @@ import { PeliculasService } from '../peliculas.service';
 export class DetallePeliculaComponent implements OnInit {
 
   constructor(private peliculasService: PeliculasService,
-    private activatedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute, 
     private sanitizer: DomSanitizer) { }
 
     pelicula: PeliculaDTO;
     fechaLanzamiento: Date;
-    //esto esta explicado en el video 113 minuto 8 //RevisarEsto
     trailerURL: SafeResourceUrl;
     coordenadas: CoordenadaConMensaje[] = [];
 
@@ -27,8 +26,7 @@ export class DetallePeliculaComponent implements OnInit {
       this.peliculasService.obtenerPorId(params.id).subscribe(pelicula => {
         console.log(pelicula);
         this.pelicula = pelicula;
-        //modifica el tipo de dato fecha que viene del web API
-        this.fechaLanzamiento = new Date(this.pelicula.fechaLanzamiento);
+        this.fechaLanzamiento = new Date(pelicula.fechaLanzamiento);
         this.trailerURL = this.generarURLYoutubeEmbed(this.pelicula.trailer);
         this.coordenadas = pelicula.cines.map(cine => {
           return {longitud: cine.longitud, latitud: cine.latitud, mensaje: cine.nombre}
@@ -38,15 +36,18 @@ export class DetallePeliculaComponent implements OnInit {
   }
 
   generarURLYoutubeEmbed(url: any): SafeResourceUrl {
-    if (!url) {
+    if (!url){
       return '';
     }
+
     var video_id = url.split('v=')[1];
     var posicionAmpersand = video_id.indexOf('&');
     if (posicionAmpersand !== -1){
       video_id = video_id.substring(0, posicionAmpersand);
     }
 
-    return this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${video_id}`);
+    return this.sanitizer
+    .bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${video_id}`)
   }
+
 }

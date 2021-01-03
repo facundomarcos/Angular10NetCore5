@@ -7,35 +7,31 @@ import { GenerosService } from '../generos.service';
 @Component({
   selector: 'app-editar-genero',
   templateUrl: './editar-genero.component.html',
-  styleUrls: ['./editar-genero.component.css']
+  styleUrls: ['./editar-genero.component.css'],
 })
 export class EditarGeneroComponent implements OnInit {
-
-  constructor(private router: Router, 
+  constructor(
+    private router: Router,
     private generosService: GenerosService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   modelo: generoDTO;
   errores: string[] = [];
 
   ngOnInit(): void {
-      this.activatedRoute.params.subscribe(params => {
-        this.generosService.obtenerPorId(params.id)
-        .subscribe(genero => {
-          this.modelo = genero;
-        }, () => this.router.navigate(['/generos']))
-        });
-    }
+    this.activatedRoute.params.subscribe((params) => {
+      this.generosService.obtenerPorId(params.id)
+      .subscribe(genero => {
+        this.modelo = genero;
+      }, () => this.router.navigate(['/generos']))
+    });
+  }
 
-  
-  guardarCambios(genero: generoCreacionDTO){
+  guardarCambios(genero: generoCreacionDTO) {
     this.generosService.editar(this.modelo.id, genero)
     .subscribe(() => {
       this.router.navigate(['/generos']);
     }, error => this.errores = parsearErroresAPI(error))
-    //guarda
-    //usa el servicio para redirigir despues de guardar
-    //this.router.navigate(['/generos'])
   }
-  
 }

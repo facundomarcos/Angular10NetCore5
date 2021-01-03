@@ -11,7 +11,7 @@ import { CinesService } from '../cines.service';
 })
 export class IndiceCinesComponent implements OnInit {
 
-  constructor(private cinesService: CinesService) {}
+  constructor(private cinesService: CinesService) { }
 
   cines: cineDTO[];
   columnasAMostrar = ['id', 'nombre', 'acciones'];
@@ -21,17 +21,14 @@ export class IndiceCinesComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarRegistros(this.paginaActual, this.cantidadRegistrosAMostrar);
-    
   }
 
   cargarRegistros(pagina: number, cantidadElementosAMostrar){
     this.cinesService.obtenerTodos(pagina, cantidadElementosAMostrar)
     .subscribe((respuesta: HttpResponse<cineDTO[]>) => {
       this.cines = respuesta.body;
-      //console.log(respuesta.headers.get("cantidadTotalRegistros"));
       this.cantidadTotalRegistros = respuesta.headers.get("cantidadTotalRegistros");
-    },
-    error => console.error(error));
+    }, error => console.error(error));
   }
 
   actualizarPaginacion(datos: PageEvent){
@@ -45,8 +42,6 @@ export class IndiceCinesComponent implements OnInit {
     .subscribe(() => {
       this.cargarRegistros(this.paginaActual, this.cantidadRegistrosAMostrar);
     }, error => console.error(error));
-
   }
+
 }
-
-

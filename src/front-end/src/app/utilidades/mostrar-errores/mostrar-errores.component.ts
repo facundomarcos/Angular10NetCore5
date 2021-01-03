@@ -9,7 +9,7 @@ export class MostrarErroresComponent implements OnInit {
 
   @Input()
   errores: string[] = [];
-  
+
   constructor() { }
 
   ngOnInit(): void {

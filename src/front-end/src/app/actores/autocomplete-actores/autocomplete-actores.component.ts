@@ -17,25 +17,27 @@ export class AutocompleteActoresComponent implements OnInit {
 
   control: FormControl = new FormControl();
 
-@Input()
-actoresSeleccionados: actorPeliculaDTO[] = [];
+  @Input()
+  actoresSeleccionados: actorPeliculaDTO[] = [];
 
-actoresAMostrar: actorPeliculaDTO[] = [];
+  actoresAMostrar: actorPeliculaDTO[] = [];
 
-columnasAMostrar = ['imagen', 'nombre', 'personaje', 'acciones'];
+  columnasAMostrar = ['imagen', 'nombre', 'personaje', 'acciones'];
 
-@ViewChild(MatTable) table: MatTable<any>;
+  @ViewChild(MatTable) table: MatTable<any>;
 
   ngOnInit(): void {
-      this.control.valueChanges.subscribe(nombre => {
+    this.control.valueChanges.subscribe(nombre => {
+      if (typeof nombre === 'string' && nombre){
         this.actoresService.obtenerPorNombre(nombre).subscribe(actores => {
           this.actoresAMostrar = actores;
         })
+      }
     });
   }
 
   optionSelected(event: MatAutocompleteSelectedEvent){
-    console.log(event.option.value);
+    // console.log(event.option.value);
     this.actoresSeleccionados.push(event.option.value);
     this.control.patchValue('');
     if (this.table !== undefined){
@@ -45,7 +47,7 @@ columnasAMostrar = ['imagen', 'nombre', 'personaje', 'acciones'];
 
   eliminar(actor){
     const indice = this.actoresSeleccionados.findIndex(a => a.nombre === actor.nombre);
-    this.actoresSeleccionados.splice(indice, 1),
+    this.actoresSeleccionados.splice(indice, 1);
     this.table.renderRows();
   }
 
@@ -56,4 +58,5 @@ columnasAMostrar = ['imagen', 'nombre', 'personaje', 'acciones'];
     moveItemInArray(this.actoresSeleccionados, indicePrevio, event.currentIndex);
     this.table.renderRows();
   }
+
 }

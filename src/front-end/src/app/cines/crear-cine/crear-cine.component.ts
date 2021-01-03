@@ -9,19 +9,18 @@ import { CinesService } from '../cines.service';
   templateUrl: './crear-cine.component.html',
   styleUrls: ['./crear-cine.component.css']
 })
-export class CrearCineComponent  {
-
+export class CrearCineComponent {
   errores: string[] = [];
 
-  //inyecta el servicio Router en el constructor
-  constructor(private router: Router, private cinesService: CinesService) { }
+  constructor(private router: Router, private cinesService: CinesService) {}
 
-  guardarCambios(cine: cineCreacionDTO){
+  guardarCambios(cine: cineCreacionDTO) {
     this.cinesService.crear(cine).subscribe(
       () => {
-      this.router.navigate(['/cines']);
-    }, 
-    (error) => this.errores = parsearErroresAPI(error)
+        this.router.navigate(['/cines']);
+      },
+      (error) => this.errores = parsearErroresAPI(error)
     );
   }
+
 }

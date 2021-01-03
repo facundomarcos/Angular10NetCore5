@@ -1,21 +1,10 @@
-<!-- control de tabs -->
 <mat-tab-group>
     <mat-tab label="Editar">
-       <!-- <mat-form-field appearance="fill">
-            <mat-label>{{placeHolderTextArea}}</mat-label>
-             se remplazo ($event.target.value) por ($any($event.target).value)
-            se ve que es un problema de casteo el que daba error
-            <textarea (input)="inputTextArea($any($event.target).value)" matInput></textarea>
-        </mat-form-field>-->
-        <mat-form-field appearance="fill" (change)="this.changeMarkdown.emit($any($event.target).value)">
-            <mat-label>{{placeHolderTextArea}}</mat-label>
-            <!-- doble via para sincronizar el textarea con la variable contenidomarkdown-->
+        <mat-form-field appearance="fill" (change)="changeMarkdown.emit($event.target.value)" >
+            <mat-label>{{placeHolderTextarea}}</mat-label>
             <textarea [(ngModel)]="contenidoMarkdown" matInput></textarea>
         </mat-form-field>
-
-
     </mat-tab>
-
     <mat-tab label="Preview">
         <markdown [data]="contenidoMarkdown" ngPreserveWhitespaces></markdown>
     </mat-tab>

@@ -1,3 +1,4 @@
+import { toBase64String } from '@angular/compiler/src/output/source_map';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { toBase64 } from '../utilidades';
 
@@ -30,4 +31,5 @@ export class InputImgComponent implements OnInit {
       this.urlImagenActual = null;
     }
   }
+
 }

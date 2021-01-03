@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms'
 import {MarkdownModule} from 'ngx-markdown'
 import {LeafletModule} from '@asymmetrik/ngx-leaflet'
-import 'leaflet/dist/images/marker-shadow.png'
+import "leaflet/dist/images/marker-shadow.png";
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import {MaterialModule} from './material/material.module';
@@ -72,7 +72,6 @@ import { DetallePeliculaComponent } from './peliculas/detalle-pelicula/detalle-p
     AutocompleteActoresComponent,
     MostrarErroresComponent,
     DetallePeliculaComponent,
-  
   ],
   imports: [
     BrowserModule,
@@ -85,7 +84,6 @@ import { DetallePeliculaComponent } from './peliculas/detalle-pelicula/detalle-p
     HttpClientModule,
     MarkdownModule.forRoot(),
     SweetAlert2Module.forRoot()
-    
   ],
   providers: [],
   bootstrap: [AppComponent]

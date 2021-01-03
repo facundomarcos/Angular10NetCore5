@@ -9,21 +9,19 @@ import { GenerosService } from '../generos.service';
 @Component({
   selector: 'app-crear-genero',
   templateUrl: './crear-genero.component.html',
-  styleUrls: ['./crear-genero.component.css']
+  styleUrls: ['./crear-genero.component.css'],
 })
 export class CrearGeneroComponent {
-
   errores: string[] = [];
 
-  //inyecta el servicio Router en el constructor
-  constructor(private router: Router, private generosService: GenerosService) { }
+  constructor(private router: Router, private generosService: GenerosService) {}
 
-  guardarCambios(genero: generoCreacionDTO){
+  guardarCambios(genero: generoCreacionDTO) {
     this.generosService.crear(genero).subscribe(
       () => {
-      this.router.navigate(['/generos']);
-    }, 
-    (error) => this.errores = parsearErroresAPI(error)
+        this.router.navigate(['/generos']);
+      },
+      (error) => this.errores = parsearErroresAPI(error)
     );
   }
 }

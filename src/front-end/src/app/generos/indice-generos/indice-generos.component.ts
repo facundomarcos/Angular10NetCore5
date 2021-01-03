@@ -14,7 +14,6 @@ export class IndiceGenerosComponent implements OnInit {
 
   constructor(private generosService: GenerosService) { }
 
-  //estas dos lineas no se cuando las agregó
   @ViewChild('table')
   table: MatTable<any>;
 
@@ -26,17 +25,14 @@ export class IndiceGenerosComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarRegistros(this.paginaActual, this.cantidadRegistrosAMostrar);
-    
   }
 
   cargarRegistros(pagina: number, cantidadElementosAMostrar){
-    this.generosService.obtenerTodos(pagina, cantidadElementosAMostrar)
+    this.generosService.obtenerPaginado(pagina, cantidadElementosAMostrar)
     .subscribe((respuesta: HttpResponse<generoDTO[]>) => {
       this.generos = respuesta.body;
-      //console.log(respuesta.headers.get("cantidadTotalRegistros"));
       this.cantidadTotalRegistros = respuesta.headers.get("cantidadTotalRegistros");
-    },
-    error => console.error(error));
+    }, error => console.error(error));
   }
 
   actualizarPaginacion(datos: PageEvent){
@@ -50,6 +46,6 @@ export class IndiceGenerosComponent implements OnInit {
     .subscribe(() => {
       this.cargarRegistros(this.paginaActual, this.cantidadRegistrosAMostrar);
     }, error => console.error(error));
-
   }
+
 }

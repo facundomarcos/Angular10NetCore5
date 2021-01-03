@@ -11,10 +11,10 @@ export class SelectorMultipleComponent implements OnInit {
   constructor() { }
 
   @Input()
-  Seleccionados:MultipleSelectorModel[] = [];
+  Seleccionados: MultipleSelectorModel[] = [];
 
   @Input()
-  NoSeleccionados:MultipleSelectorModel[] = [];
+  NoSeleccionados: MultipleSelectorModel[] = [];
 
   ngOnInit(): void {
   }
@@ -23,6 +23,7 @@ export class SelectorMultipleComponent implements OnInit {
     this.Seleccionados.push(item);
     this.NoSeleccionados.splice(index, 1);
   }
+
   deseleccionar(item: MultipleSelectorModel, index: number){
     this.NoSeleccionados.push(item);
     this.Seleccionados.splice(index, 1);
@@ -33,8 +34,9 @@ export class SelectorMultipleComponent implements OnInit {
     this.NoSeleccionados = [];
   }
 
-  desSeleccionarTodo(){
+  deseleccionarTodo(){
     this.NoSeleccionados.push(...this.Seleccionados);
     this.Seleccionados = [];
   }
+
 }

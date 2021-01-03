@@ -1,5 +1,6 @@
-form{
+form {
     width: 100%;
+    max-width: 500px;
 }
 
 mat-form-field {
@@ -15,9 +16,9 @@ img {
 
 table {
     width: 100%;
-    margin-bottom:  1rem;
+    margin-bottom: 1rem;
 }
 
-mat-icon {
+mat-icon{
     cursor: pointer;
 }

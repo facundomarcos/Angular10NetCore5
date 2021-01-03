@@ -22,7 +22,7 @@ export class CrearActorComponent implements OnInit {
     this.actoresService.crear(actor)
     .subscribe(() => {
       this.router.navigate(['/actores']);
-    }, 
-    errores => this.errores = parsearErroresAPI(errores));
+    }, errores => this.errores = parsearErroresAPI(errores))
   }
+
 }

@@ -1,4 +1,3 @@
-//para leer el actor
 export interface actorDTO {
     id: number;
     nombre: string;
@@ -6,7 +5,7 @@ export interface actorDTO {
     foto: string;
     biografia: string;
 }
-//para crear actor
+
 export interface actorCreacionDTO {
     nombre: string;
     fechaNacimiento: Date;
@@ -18,5 +17,5 @@ export interface actorPeliculaDTO {
     id: number;
     nombre: string;
     personaje: string;
-    foto: string;
+    foto: string
 }

@@ -1,16 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { actorCreacionDTO } from '../actor';
-import { actorDTO } from '../actor';
+import { actorCreacionDTO, actorDTO } from '../actor';
 
 @Component({
   selector: 'app-formulario-actores',
   templateUrl: './formulario-actores.component.html',
-  styleUrls: ['./formulario-actores.component.css']
+  styleUrls: ['./formulario-actores.component.css'],
 })
 export class FormularioActoresComponent implements OnInit {
-
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder) {}
 
   form: FormGroup;
 
@@ -29,13 +27,13 @@ export class FormularioActoresComponent implements OnInit {
     this.form = this.formBuilder.group({
       nombre: [
         '',
-      {
-        validators: [Validators.required],
-      },
-    ],
-    fechaNacimiento: '',
-    foto: '',
-    biografia: ''
+        {
+          validators: [Validators.required],
+        },
+      ],
+      fechaNacimiento: '',
+      foto: '',
+      biografia: ''
     });
 
     if (this.modelo !== undefined){
@@ -51,10 +49,9 @@ export class FormularioActoresComponent implements OnInit {
   cambioMarkdown(texto: string){
     this.form.get('biografia').setValue(texto);
   }
-  
+
   onSubmit(){
-    //si el usuario no edita la foto, no se envia
-    if ( !this.imagenCambiada){
+    if (!this.imagenCambiada){
       this.form.patchValue({'foto': null});
     }
     this.OnSubmit.emit(this.form.value);

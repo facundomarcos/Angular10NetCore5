@@ -26,10 +26,10 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('front-end');
   });
 
-  it('deberia renderizar un parrafo', () => {
+  it('debería renderizar un párrafo', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('p').textContent).toContain('hola');
+    expect(compiled.querySelector('p').textContent).toContain('Hola mundo');
   });
 });
